@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Store Location Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">Store Location Analyzer</div>
+        <ul class="nav-menu">
+            <li><a href="#upload">Upload</a></li>
+            <li><a href="#cleaning">Data Cleaning</a></li>
+            <li><a href="#eda">EDA</a></li>
+            <li><a href="#regression">Regression</a></li>
+            <li><a href="#sensitivity">Sensitivity</a></li>
+            <li><a href="#ranking">Ranking</a></li>
+            <li><button onclick="logout()" class="btn-logout">Logout</button></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- Upload Section -->
+        <section id="upload" class="section">
+            <h2>Upload Dataset</h2>
+            <div class="upload-area">
+                <input type="file" id="fileInput" accept=".csv">
+                <button onclick="uploadFile()" class="btn-primary">Upload</button>
+            </div>
+            <div id="uploadPreview" class="preview"></div>
+        </section>
+
+        <!-- Data Cleaning Section -->
+        <section id="cleaning" class="section">
+            <h2>Data Cleaning</h2>
+            <div class="cleaning-options">
+                <select id="cleaningMethod">
+                    <option value="drop">Drop Missing Values</option>
+                    <option value="fill">Fill Missing Values</option>
+                </select>
+                <button onclick="cleanData()" class="btn-primary">Clean Data</button>
+            </div>
+            <div id="cleaningResult" class="result"></div>
+        </section>
+
+        <!-- EDA Section -->
+        <section id="eda" class="section">
+            <h2>Exploratory Data Analysis</h2>
+            <button onclick="performEDA()" class="btn-primary">Generate EDA</button>
+            <div id="edaResults" class="eda-results"></div>
+        </section>
+
+        <!-- Regression Section -->
+        <section id="regression" class="section">
+            <h2>Regression Analysis</h2>
+            <div class="regression-options">
+                <label>Target Column:</label>
+                <input type="text" id="targetColumn" value="sales" placeholder="e.g., sales">
+                
+                <label>Model Type:</label>
+                <select id="modelType">
+                    <option value="linear">Linear Regression</option>
+                    <option value="random_forest">Random Forest</option>
+                </select>
+                
+                <button onclick="runRegression()" class="btn-primary">Run Regression</button>
+            </div>
+            <div id="regressionResults" class="results"></div>
+        </section>
+
+        <!-- Sensitivity Analysis Section -->
+        <section id="sensitivity" class="section">
+            <h2>Sensitivity Analysis</h2>
+            <div class="sensitivity-options">
+                <label>Factor to Analyze:</label>
+                <input type="text" id="sensitivityFactor" placeholder="e.g., population_density">
+                
+                <button onclick="runSensitivityAnalysis()" class="btn-primary">Analyze Sensitivity</button>
+            </div>
+            <div id="sensitivityResults" class="results"></div>
+        </section>
+
+        <!-- Location Ranking Section -->
+        <section id="ranking" class="section">
+            <h2>Location Ranking System</h2>
+            <div class="ranking-options">
+                <label>Location Column:</label>
+                <input type="text" id="locationColumn" value="location" placeholder="e.g., location">
+                
+                <button onclick="rankLocations()" class="btn-primary">Rank Locations</button>
+            </div>
+            <div id="rankingResults" class="results">
+                <table id="rankingTable" class="ranking-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Location</th>
+                            <th>Predicted Performance</th>
+                            <th>Population Density</th>
+                            <th>Competitors</th>
+                            <th>Accessibility</th>
+                            <th>Rental Cost</th>
+                            <th>Footfall</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rankingBody"></tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
